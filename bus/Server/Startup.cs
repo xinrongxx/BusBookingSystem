@@ -1,5 +1,7 @@
 using bus.Server.Data;
+using bus.Server.IRepository;
 using bus.Server.Models;
+using bus.Server.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +43,12 @@ namespace bus.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddControllersWithViews().AddNewtonsoftJson(op =>
+            op.SerializerSettings.ReferenceLoopHandling =
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddRazorPages();
         }
 

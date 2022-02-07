@@ -21,7 +21,6 @@ namespace bus.Server.Data
         }
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

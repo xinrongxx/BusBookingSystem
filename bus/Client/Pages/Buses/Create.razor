@@ -10,7 +10,7 @@
     <ValidationSummary />
 
     <div class="form-group">
-        <label>Number of Seater: </label>
+        <label>Number of Bus: </label>
         <div>
             <InputText @bind-Value="bus.BusSeater" class="form-control" />
             <ValidationMessage For="@(()=> bus.BusSeater)" />
@@ -42,7 +42,7 @@
 
     private IList<Bus> Buses;
 
-    List<string> ratingOptions = new List<string> { "1", "2", "3", "4", "5" };
+    List<string> ratingOptions = new List<string> { "10", "19", "23", "40", "45", "49" };
 
     protected async override Task OnInitializedAsync()
     {
