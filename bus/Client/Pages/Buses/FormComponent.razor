@@ -1,0 +1,35 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@bus" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Number of Seater: </label>
+            <div>
+                <InputText @bind-Value="bus.BusSeater" class="form-control" />
+                <ValidationMessage For="@(()=> bus.BusSeater)" />
+            </div>
+        </div>
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class=" btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="buses" />
+</EditForm>
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Bus bus { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Bus> Buses;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
+    }
+}

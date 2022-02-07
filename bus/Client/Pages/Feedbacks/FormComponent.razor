@@ -1,0 +1,26 @@
+﻿<EditForm Model="@feedback" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Feedback: </label>
+            <div>
+                <InputText @bind-Value="feedback.Comment" class="form-control" />
+                <ValidationMessage For="@(()=> feedback.Comment)" />
+            </div>
+        </div>
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class=" btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="feedbacks" />
+</EditForm>
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Feedback feedback { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

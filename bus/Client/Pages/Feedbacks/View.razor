@@ -1,0 +1,13 @@
+﻿@page "/feedbacks/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>View</h3>
+<FormComponent feedback="feedback" Disabled="true" />
+@code {
+    [Parameter] public int id { get; set; }
+    Feedback feedback = new Feedback();
+    protected async override Task OnParametersSetAsync()
+    {
+        feedback = await _client.GetFromJsonAsync<Feedback>($"{Endpoints.FeedbacksEndpoint}/{id}");
+    }
+}

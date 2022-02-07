@@ -1,0 +1,23 @@
+﻿@page "/feedbacks/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Feedback</h3>
+<FormComponent ButtonText="Update" OnValidSubmit="EditFeedback" feedback="feedback" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Feedback feedback = new Feedback();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        feedback = await _client.GetFromJsonAsync<Feedback>($"{Endpoints.FeedbacksEndpoint}/{id}");
+    }
+
+    async Task EditFeedback()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.FeedbacksEndpoint}/{id}", feedback);
+        _navManager.NavigateTo("/feedbacks/");
+    }
+
+}

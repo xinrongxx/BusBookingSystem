@@ -1,0 +1,57 @@
+﻿@page "/buses/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Vehicles</h3>
+<hr />
+<br />
+<EditForm Model="@bus" OnValidSubmit="CreateBus">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Number of Seater: </label>
+        <div>
+            <InputText @bind-Value="bus.BusSeater" class="form-control" />
+            <ValidationMessage For="@(()=> bus.BusSeater)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Type: </label>
+        <div>
+            <InputRadioGroup @bind-Value="bus.Type" class="form-control">
+                @foreach (var option in ratingOptions)
+                {
+                <InputRadio Value="option" /> @option <br />
+                }
+            </InputRadioGroup>
+        </div>
+        <br />
+        <hr />
+        <span id="rating"></span>
+    </div>
+
+    <button type="submit" class=" btn btn-success btn-block">
+        Create Vehicle
+    </button>
+</EditForm>
+
+@code {
+    Bus bus = new Bus();
+
+    private IList<Bus> Buses;
+
+    List<string> ratingOptions = new List<string> { "1", "2", "3", "4", "5" };
+
+    protected async override Task OnInitializedAsync()
+    {
+        Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
+    }
+
+    private async Task CreateBus()
+    {
+        await _client.PostAsJsonAsync(Endpoints.BusesEndpoint, bus);
+        _navManager.NavigateTo("/bus/");
+    }
+}
