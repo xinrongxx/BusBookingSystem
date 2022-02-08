@@ -152,14 +152,14 @@ namespace bus.Server.Migrations
                         new
                         {
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            ConcurrencyStamp = "bbf0a917-309e-4f8f-a0d5-b6fa9910cc6c",
+                            ConcurrencyStamp = "cc3f260b-c5f6-4be6-b042-b6902817a3d7",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            ConcurrencyStamp = "a815e1aa-3702-4e8e-96c0-97d52ccc7921",
+                            ConcurrencyStamp = "39405646-5f8e-4f2a-981b-f26c10bf8716",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -355,7 +355,7 @@ namespace bus.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49d462a3-c67b-4d4f-a336-0829be983ede",
+                            ConcurrencyStamp = "8d372b18-9c1d-4338-b145-65c361d93126",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -363,9 +363,9 @@ namespace bus.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKCowm1bDufJGqD2+PCSO3AXJ+gDeZMYVtIy7/0BCvp62Xxx8D9fI5lZp/YKakMOhA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIH2znwDLxmjVMiGIXjbRIEeYlu7g5DVr0YhKbqZAFRuYYZ6vH243H8kw/Gzj0jZ/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5cea970a-d8a9-48cf-b525-700aeaf66609",
+                            SecurityStamp = "294c717a-de2e-4cd4-b56b-6effc6b390d6",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -396,8 +396,18 @@ namespace bus.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Dropoff")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<int>("Hours")
                         .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("ServiceId")
                         .HasColumnType("int");
@@ -541,7 +551,9 @@ namespace bus.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Seats")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -555,8 +567,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 221, DateTimeKind.Local).AddTicks(2976),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(7892),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 504, DateTimeKind.Local).AddTicks(9639),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 506, DateTimeKind.Local).AddTicks(9601),
                             Seats = "10",
                             UpdatedBy = "System"
                         },
@@ -564,8 +576,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9973),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9982),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1887),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1897),
                             Seats = "19",
                             UpdatedBy = "System"
                         },
@@ -573,8 +585,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9986),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9988),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1904),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1908),
                             Seats = "23",
                             UpdatedBy = "System"
                         },
@@ -582,8 +594,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9990),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9992),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1913),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1915),
                             Seats = "40",
                             UpdatedBy = "System"
                         },
@@ -591,8 +603,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 5,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9995),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9996),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1917),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1919),
                             Seats = "45",
                             UpdatedBy = "System"
                         },
@@ -600,8 +612,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 6,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9999),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 228, DateTimeKind.Local),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1921),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1923),
                             Seats = "49",
                             UpdatedBy = "System"
                         });
@@ -624,7 +636,9 @@ namespace bus.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -638,8 +652,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6864),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6907),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(722),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(747),
                             Type = "School bus",
                             UpdatedBy = "System"
                         },
@@ -647,8 +661,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6915),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6917),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(757),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(762),
                             Type = "Shuttle bus",
                             UpdatedBy = "System"
                         },
@@ -656,8 +670,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6921),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6923),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(767),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(772),
                             Type = "Concert / Event Trips",
                             UpdatedBy = "System"
                         },
@@ -665,8 +679,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6926),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6929),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(777),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(781),
                             Type = "School Excursion / Field Trips / Camp",
                             UpdatedBy = "System"
                         },
@@ -674,8 +688,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 5,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6932),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6934),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(786),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(790),
                             Type = "Funeral",
                             UpdatedBy = "System"
                         },
@@ -683,8 +697,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 6,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6938),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6940),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(793),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(798),
                             Type = "Day Care Centres",
                             UpdatedBy = "System"
                         },
@@ -692,8 +706,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 7,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6943),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6945),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(803),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(807),
                             Type = "Wedding Functions",
                             UpdatedBy = "System"
                         },
@@ -701,8 +715,8 @@ namespace bus.Server.Migrations
                         {
                             Id = 8,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6948),
-                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6950),
+                            DateCreated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(812),
+                            DateUpdated = new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(816),
                             Type = "Company Functions",
                             UpdatedBy = "System"
                         });

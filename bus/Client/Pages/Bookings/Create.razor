@@ -42,7 +42,20 @@
             <ValidationMessage For="@(()=> booking.CustomerId)" />
         </div>
     </div>
-
+     <div class="form-group">
+        <label>Location: </label>
+        <div>
+            <InputText @bind-Value="booking.Location" class="form-control" />
+            <ValidationMessage For="@(()=> booking.Location)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Dropoff point(s): </label>
+        <div>
+            <InputText @bind-Value="booking.Dropoff" class="form-control" />
+            <ValidationMessage For="@(()=> booking.Dropoff)" />
+        </div>
+    </div>
     <div class="form-group">
         <label>Date Out: </label>
         <div>

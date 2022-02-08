@@ -2,94 +2,28 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
-<h3 class="card-title">No. of Seater Bus</h3>
+<h3 class="card-title">Create New Seat</h3>
 <hr />
 <br />
 <EditForm Model="@seat" OnValidSubmit="CreateSeat">
-   <DataAnnotationsValidator />
-   <ValidationSummary />
-    <div class="form-group">
-		<div class="inner_div">
-			<h6>10 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="10 Seater" value="10">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus1.jpg" alt="Bus1" width="300" height="200" /> 
-			</span>
-			<span> 
-				 $55/hr
-			</span>
-		</div>
-		<div class="inner_div">
-			<h6>19 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="19 Seater" value="19">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus2.jpg" alt="Bus2" width="300" height="200" /> 
-			</span>
-			<span> 
-				 $69/hr
-			</span>
-		</div>
-		<div class="inner_div">
-			<h6>23 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="23 Seater" value="23">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus3.jpg" alt="Bus3" width="300" height="200" /> 
-			</span>
-			<span> 
-			 
-				 $75/hr
-			</span>
-		</div>
-		<div class="inner_div">
-			<h6>40 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="40 Seater" value="40">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus4.jpg" alt="Bus4" width="300" height="200" /> 
-			</span>
-			<span> 
-				$85/hr
-			</span>
-		</div>
-		<div class="inner_div">	
-			<h6>45 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="45 Seater" value="45">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus5.jpg" alt="Bus5" width="300" height="200" /> 
-			</span>
-			<span> 
-				$90/hr
-			</span>
-		</div>
-		<div class="inner_div">
-			<h6>49 Seater</h6>
-			<span class="span_class"> 
-				<input type="radio" name="49 Seater" value="49">
-			</span>
-			<span class="span_class"> 
-				 <img src="images/Bus6.jpg" alt="Bus6" width="300" height="200" /> 
-			</span>
-			<span> 
-				 $100/hr
-			</span>
-		</div>
-	</div>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-	<button type="submit" class=" btn btn-success btn-block">
-        Confirm
+    <div class="form-group">
+        <label>Seat: </label>
+        <div>
+            <InputText @bind-Value="seat.Seats" class="form-control" />
+            <ValidationMessage For="@(()=> seat.Seats)" />
+        </div>
+    </div>
+
+    <button type="submit" class=" btn btn-success btn-block">
+        Create Seat
     </button>
 </EditForm>
+
 @code {
-	Seat seat = new Seat();
+    Seat seat = new Seat();
 
     private IList<Seat> Seats;
 
@@ -101,6 +35,6 @@
     private async Task CreateSeat()
     {
         await _client.PostAsJsonAsync(Endpoints.SeatsEndpoint, seat);
-        _navManager.NavigateTo("/buses/");
+        _navManager.NavigateTo("/Seats/");
     }
 }

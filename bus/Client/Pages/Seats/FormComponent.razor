@@ -2,6 +2,13 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <fieldset disabled="@Disabled">
+    <div class="form-group">
+        <label>Seat: </label>
+        <div>
+            <InputText @bind-Value="seat.Seats" class="form-control" />
+            <ValidationMessage For="@(()=> seat.Seats)" />
+        </div>
+    </div>
     </fieldset>
 
     @if (!Disabled)

@@ -22,9 +22,14 @@ else
 {
     <table class="table table-responsive" id="bookingsTable">
         <thead>
-            <tr>
-                <th>Booking Id</th>
+            <tr>        
                 <th>Date</th>
+                <th>Hours</th>
+                <th>Location to meet</th>
+                <th>Drop off point</th>
+                <th>Bus</th>
+                <th>Customer</th>
+                <th>Service</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,8 +37,13 @@ else
             @foreach (var booking in Bookings)
             {
                 <tr>
-                    <td>@booking.Id</td>
                     <td>@booking.DateCreated.Date.ToString("dd MMMM yyyy")</td>
+                    <td>@booking.Hours</td>
+                    <td>@booking.Location</td>
+                    <td>@booking.Dropoff</td>
+                    <td>@booking.BusId</td>
+                    <td>@booking.CustomerId</td>
+                    <td>@booking.ServiceId</td>
                     <td>
                         <a href="/bookings/view/@booking.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
