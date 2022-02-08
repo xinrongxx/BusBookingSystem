@@ -11,6 +11,22 @@
                 <ValidationMessage For="@(()=> bus.BusNo)" />
             </div>
         </div>
+         <div class="form-group">
+        <label>Seat: </label>
+        <div>
+            <InputSelect @bind-Value="bus.SeatId" class="form-control">
+               <option value="">-- Select Seat --</option>
+                @if (Seats != null)
+                {
+                    foreach (var seat in Seats)
+                    {
+                        <option value="@seat.Id">@seat.Seats</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> bus.SeatId)" />
+        </div>
+    </div>
     </fieldset>
     @if (!Disabled)
     {
@@ -26,10 +42,10 @@
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private IList<Bus> Buses;
+    private IList<Seat> Seats;
 
     protected async override Task OnInitializedAsync()
     {
-        Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
+        Seats = await _client.GetFromJsonAsync<List<Seat>>($"{Endpoints.SeatsEndpoint}");
     }
 }
