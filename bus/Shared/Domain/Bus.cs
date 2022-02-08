@@ -10,7 +10,6 @@ namespace bus.Shared.Domain
     public class Bus : BaseDomainModel
     {
         [Required]
-        [DataType(DataType.Date)]
         public int BusNo { get; set; }
         public int? SeatId { get; set; }
         public virtual Seat Seat { get; set; }

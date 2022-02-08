@@ -31,7 +31,7 @@ namespace bus.Server.Controllers
         public async Task<ActionResult> GetBookings()
         {
             //return await _context.Bookings.ToListAsync();
-            var Bookings = await _unitOfWork.Bookings.GetAll(includes: q => q.Include(x => x.Bus).Include(x => x.Customer));
+            var Bookings = await _unitOfWork.Bookings.GetAll(includes: q => q.Include(x => x.Bus).Include(x => x.Customer).Include(x => x.Service));
             return Ok(Bookings);
         }
 

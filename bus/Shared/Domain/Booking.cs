@@ -6,6 +6,8 @@ namespace bus.Shared.Domain
 {
     public class Booking : BaseDomainModel
     {
+        private const int V = 25;
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateOut { get; set; }

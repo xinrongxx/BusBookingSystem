@@ -24,6 +24,7 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Services</th>
                 <th>Actions</th>
             </tr>
@@ -32,6 +33,7 @@ else
             @foreach (var service in Services)
             {
                 <tr>
+                    <td>@service.Id</td>
                     <td>@service.Type</td>
                     <td>
                         <a href="/services/view/@service.Id" class="btn btn-primary">

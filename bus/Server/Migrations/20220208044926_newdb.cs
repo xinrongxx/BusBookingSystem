@@ -336,26 +336,26 @@ namespace bus.Server.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "cc3f260b-c5f6-4be6-b042-b6902817a3d7", "Administrator", "ADMINISTRATOR" },
-                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", "39405646-5f8e-4f2a-981b-f26c10bf8716", "User", "USER" }
+                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "be68113f-f377-461b-8150-c8ba711c6dc4", "Administrator", "ADMINISTRATOR" },
+                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", "5df7a2d0-1b26-4332-8a60-adb2f86c5ff3", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "8d372b18-9c1d-4338-b145-65c361d93126", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", "AQAAAAEAACcQAAAAEIH2znwDLxmjVMiGIXjbRIEeYlu7g5DVr0YhKbqZAFRuYYZ6vH243H8kw/Gzj0jZ/w==", null, false, "294c717a-de2e-4cd4-b56b-6effc6b390d6", false, "Admin" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "cbabae61-bcb7-4c6f-8461-3f5d311cf91b", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", "AQAAAAEAACcQAAAAENzhfoiv2LneADnsxvNfb+9m4xaKnJESgfMUnlWlowZGFvxzjol36gEMfmkipf/K2Q==", null, false, "bb9f7776-8d79-4a4b-af51-58bcf9ce173a", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Seats",
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Seats", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 5, "System", new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1917), new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1919), "45", "System" },
-                    { 4, "System", new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1913), new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1915), "40", "System" },
-                    { 6, "System", new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1921), new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1923), "49", "System" },
-                    { 2, "System", new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1887), new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1897), "19", "System" },
-                    { 1, "System", new DateTime(2022, 2, 8, 11, 11, 33, 504, DateTimeKind.Local).AddTicks(9639), new DateTime(2022, 2, 8, 11, 11, 33, 506, DateTimeKind.Local).AddTicks(9601), "10", "System" },
-                    { 3, "System", new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1904), new DateTime(2022, 2, 8, 11, 11, 33, 507, DateTimeKind.Local).AddTicks(1908), "23", "System" }
+                    { 5, "System", new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6724), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6726), "45", "System" },
+                    { 4, "System", new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6719), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6721), "40", "System" },
+                    { 6, "System", new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6729), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6731), "49", "System" },
+                    { 2, "System", new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6698), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6710), "19", "System" },
+                    { 1, "System", new DateTime(2022, 2, 8, 12, 49, 24, 529, DateTimeKind.Local).AddTicks(704), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(4144), "10", "System" },
+                    { 3, "System", new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6714), new DateTime(2022, 2, 8, 12, 49, 24, 531, DateTimeKind.Local).AddTicks(6717), "23", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -363,14 +363,14 @@ namespace bus.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Type", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 7, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(803), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(807), "Wedding Functions", "System" },
-                    { 1, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(722), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(747), "School bus", "System" },
-                    { 2, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(757), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(762), "Shuttle bus", "System" },
-                    { 3, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(767), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(772), "Concert / Event Trips", "System" },
-                    { 4, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(777), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(781), "School Excursion / Field Trips / Camp", "System" },
-                    { 5, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(786), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(790), "Funeral", "System" },
-                    { 6, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(793), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(798), "Day Care Centres", "System" },
-                    { 8, "System", new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(812), new DateTime(2022, 2, 8, 11, 11, 33, 511, DateTimeKind.Local).AddTicks(816), "Company Functions", "System" }
+                    { 7, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5758), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5759), "Wedding Functions", "System" },
+                    { 1, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5706), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5727), "School bus", "System" },
+                    { 2, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5734), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5736), "Shuttle bus", "System" },
+                    { 3, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5739), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5741), "Concert / Event Trips", "System" },
+                    { 4, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5744), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5746), "School Excursion / Field Trips / Camp", "System" },
+                    { 5, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5749), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5750), "Funeral", "System" },
+                    { 6, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5753), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5755), "Day Care Centres", "System" },
+                    { 8, "System", new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5762), new DateTime(2022, 2, 8, 12, 49, 24, 534, DateTimeKind.Local).AddTicks(5764), "Company Functions", "System" }
                 });
 
             migrationBuilder.InsertData(

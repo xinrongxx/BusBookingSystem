@@ -27,6 +27,23 @@
     </div>
 
     <div class="form-group">
+        <label>Services: </label>
+        <div>
+            <InputSelect @bind-Value="booking.ServiceId" class="form-control">
+                <option value="">-- Select Service --</option>
+                @if (Services != null)
+                {
+                    foreach (var service in Services)
+                    {
+                        <option value="@service.Id">@service.Type</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> booking.ServiceId)" />
+        </div>
+    </div>
+
+    <div class="form-group">
         <label>Customer: </label>
         <div>
             <InputSelect @bind-Value="booking.CustomerId" class="form-control">
@@ -84,12 +101,14 @@
     private IList<Booking> Bookings;
     private IList<Bus> Buses;
     private IList<Customer> Customers;
+    private IList<Service> Services;
 
     protected async override Task OnInitializedAsync()
     {
         Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
         Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
         Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
+        Services = await _client.GetFromJsonAsync<List<Service>>($"{Endpoints.ServicesEndpoint}");
     }
 
     private async Task CreateBooking()
