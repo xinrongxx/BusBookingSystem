@@ -14,57 +14,57 @@ namespace bus.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BusesController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         //Refactored
         //private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
-        //public BusesController(ApplicationDbContext context)
-        public BusesController(IUnitOfWork unitofWork)
+        //public CustomersController(ApplicationDbContext context)
+        public CustomersController(IUnitOfWork unitofWork)
         {
             //_context = context;
             _unitOfWork = unitofWork;
         }
 
-        // GET: api/Buses
+        // GET: api/Customers
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Model>>> GetBuses()
-        public async Task<ActionResult> GetBuses()
+        //public async Task<ActionResult<IEnumerable<Model>>> GetCustomers()
+        public async Task<ActionResult> GetCustomers()
         {
-            //return await _context.Buses.ToListAsync();
-            var Buses = await _unitOfWork.Buses.GetAll(includes: q => q.Include(x => x.Seat));
-            return Ok(Buses);
+            //return await _context.Customers.ToListAsync();
+            var Customers = await _unitOfWork.Customers.GetAll();
+            return Ok(Customers);
         }
 
-        // GET: api/Buses/5
+        // GET: api/Customers/5
         [HttpGet("{id}")]
-        //public async Task<ActionResult<Model>> GetBuse(int id)
-        public async Task<ActionResult> GetBuses(int id)
+        //public async Task<ActionResult<Model>> GetCustomer(int id)
+        public async Task<ActionResult> GetCustomers(int id)
         {
-            //var Model = await _context.Buses.FindAsync(id);
-            var Bus = await _unitOfWork.Buses.Get(q => q.Id == id);
+            //var Model = await _context.Customers.FindAsync(id);
+            var Customer = await _unitOfWork.Customers.Get(q => q.Id == id);
 
-            if (Bus == null)
+            if (Customer == null)
             {
                 return NotFound();
             }
 
             //return Model;
-            return Ok(Bus);
+            return Ok(Customer);
         }
 
-        // PUT: api/Buses/5
+        // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBus(int id, Bus Bus)
+        public async Task<IActionResult> PutCustomer(int id, Customer Customer)
         {
-            if (id != Bus.Id)
+            if (id != Customer.Id)
             {
                 return BadRequest();
             }
 
             //_context.Entry(Model).State = EntityState.Modified;
-            _unitOfWork.Buses.Update(Bus);
+            _unitOfWork.Customers.Update(Customer);
 
             try
             {
@@ -74,8 +74,8 @@ namespace bus.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                //if (!BusExists(id))
-                if (!await BusExists(id))
+                //if (!Customerxists(id))
+                if (!await Customerxists(id))
                 {
                     return NotFound();
                 }
@@ -88,42 +88,42 @@ namespace bus.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Buses
+        // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Seat>> PostBus(Bus Bus)
+        public async Task<ActionResult<Seat>> PostBus(Customer Customer)
         {
-            //_context.Buses.Add(Model);
+            //_context.Customers.Add(Model);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Buses.Insert(Bus);
+            await _unitOfWork.Customers.Insert(Customer);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetBus", new { id = Bus.Id }, Bus);
+            return CreatedAtAction("GetBus", new { id = Customer.Id }, Customer);
         }
 
-        // DELETE: api/Buses/5
+        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBus(int id)
         {
-            //var Model = await _context.Buses.FindAsync(id);
-            var Bus = await _unitOfWork.Buses.Get(q => q.Id == id);
+            //var Model = await _context.Customers.FindAsync(id);
+            var Bus = await _unitOfWork.Customers.Get(q => q.Id == id);
             if (Bus == null)
             {
                 return NotFound();
             }
 
-            //_context.Buses.Remove(Model);
+            //_context.Customers.Remove(Model);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Buses.Delete(id);
+            await _unitOfWork.Customers.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> BusExists(int id)
+        private async Task<bool> Customerxists(int id)
         {
-            //return _context.Buses.Any(e => e.Id == id);
-            var Bus = await _unitOfWork.Buses.Get(q => q.Id == id);
+            //return _context.Customers.Any(e => e.Id == id);
+            var Bus = await _unitOfWork.Customers.Get(q => q.Id == id);
             return Bus != null;
         }
     }

@@ -10,7 +10,7 @@ using bus.Server.Data;
 namespace bus.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220207061152_newdb")]
+    [Migration("20220208004155_newdb")]
     partial class newdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,14 +154,14 @@ namespace bus.Server.Migrations
                         new
                         {
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            ConcurrencyStamp = "037ba005-11ad-42bb-acf9-7fa6b1f36c16",
+                            ConcurrencyStamp = "bbf0a917-309e-4f8f-a0d5-b6fa9910cc6c",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            ConcurrencyStamp = "1ae07c2b-ccba-475b-b82b-f4c6b830c1e5",
+                            ConcurrencyStamp = "a815e1aa-3702-4e8e-96c0-97d52ccc7921",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -357,7 +357,7 @@ namespace bus.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8edee55d-cecc-47db-991b-d010a4c8b055",
+                            ConcurrencyStamp = "49d462a3-c67b-4d4f-a336-0829be983ede",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -365,12 +365,57 @@ namespace bus.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKpn86QdTc+dwpoD5iYEVy5hebvcBKZOoFxsAlI/ETqW3BIGmkWsZRrgRFj8JKGzhA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKCowm1bDufJGqD2+PCSO3AXJ+gDeZMYVtIy7/0BCvp62Xxx8D9fI5lZp/YKakMOhA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5afd380-1f9a-4951-a3b7-692eb551265e",
+                            SecurityStamp = "5cea970a-d8a9-48cf-b525-700aeaf66609",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Hours")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("bus.Shared.Domain.Bus", b =>
@@ -380,10 +425,43 @@ namespace bus.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
+                    b.Property<int>("BusNo")
+                        .HasColumnType("int");
 
-                    b.Property<string>("BusSeater")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SeatId");
+
+                    b.ToTable("Buses");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -396,15 +474,26 @@ namespace bus.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Type")
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Buses");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("bus.Shared.Domain.Feedback", b =>
@@ -435,6 +524,190 @@ namespace bus.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Seat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Seats")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Seats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 221, DateTimeKind.Local).AddTicks(2976),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(7892),
+                            Seats = "10",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9973),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9982),
+                            Seats = "19",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9986),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9988),
+                            Seats = "23",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9990),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9992),
+                            Seats = "40",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9995),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9996),
+                            Seats = "45",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9999),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 228, DateTimeKind.Local),
+                            Seats = "49",
+                            UpdatedBy = "System"
+                        });
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6864),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6907),
+                            Type = "School bus",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6915),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6917),
+                            Type = "Shuttle bus",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6921),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6923),
+                            Type = "Concert / Event Trips",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6926),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6929),
+                            Type = "School Excursion / Field Trips / Camp",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6932),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6934),
+                            Type = "Funeral",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6938),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6940),
+                            Type = "Day Care Centres",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6943),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6945),
+                            Type = "Wedding Functions",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6948),
+                            DateUpdated = new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6950),
+                            Type = "Company Functions",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -486,6 +759,51 @@ namespace bus.Server.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Booking", b =>
+                {
+                    b.HasOne("bus.Shared.Domain.Bus", "Bus")
+                        .WithMany("Bookings")
+                        .HasForeignKey("BusId");
+
+                    b.HasOne("bus.Shared.Domain.Customer", "Customer")
+                        .WithMany("Bookings")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("bus.Shared.Domain.Service", "Service")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ServiceId");
+
+                    b.Navigation("Bus");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Bus", b =>
+                {
+                    b.HasOne("bus.Shared.Domain.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId");
+
+                    b.Navigation("Seat");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Bus", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Customer", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("bus.Shared.Domain.Service", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

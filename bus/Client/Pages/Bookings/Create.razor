@@ -1,0 +1,87 @@
+﻿@page "/bookings/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Booking</h3>
+<hr />
+<br />
+<EditForm Model="@booking" OnValidSubmit="CreateBooking">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Vehicles: </label>
+        <div>
+            <InputSelect @bind-Value="booking.BusId" class="form-control">
+                <option value="">-- Select Bus --</option>
+                @if (Buses != null)
+                {
+                    foreach (var bus in Buses)
+                    {
+                        <option value="@bus.Id">@bus.Seat.Seats</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> booking.BusId)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Customer: </label>
+        <div>
+            <InputSelect @bind-Value="booking.CustomerId" class="form-control">
+                <option value="">-- Select Customer --</option>
+                @if (Customers != null)
+                {
+                    foreach (var customer in Customers)
+                    {
+                        <option value="@customer.Id">@customer.FirstName</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=> booking.CustomerId)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Date Out: </label>
+        <div>
+            <InputDate @bind-Value="booking.DateOut" class="form-control">
+            </InputDate>
+            <ValidationMessage For="@(()=> booking.DateOut)" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>No. of Hours: </label>
+        <div>
+            <InputNumber @bind-Value="booking.Hours" class="form-control" />
+            <ValidationMessage For="@(()=> booking.Hours)" />
+        </div>
+    </div>
+
+    <button type="submit" class=" btn btn-success btn-block">
+        Create Booking
+    </button>
+</EditForm>
+
+@code {
+    Booking booking = new Booking();
+
+    private IList<Booking> Bookings;
+    private IList<Bus> Buses;
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
+        Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
+        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
+    }
+
+    private async Task CreateBooking()
+    {
+        await _client.PostAsJsonAsync(Endpoints.BookingsEndpoint, booking);
+        _navManager.NavigateTo("/bookings/");
+    }
+}

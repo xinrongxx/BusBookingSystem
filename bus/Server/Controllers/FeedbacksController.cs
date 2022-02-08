@@ -85,7 +85,7 @@ namespace bus.Server.Controllers
         // POST: api/Feedbacks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Feedback>> PostFeedback(Feedback Feedback)
+        public async Task<ActionResult<Seat>> PostFeedback(Feedback Feedback)
         {
             //_context.Feedbacks.Add(Model);
             //await _context.SaveChangesAsync();

@@ -18,7 +18,11 @@ namespace bus.Server.Repository
     {
         private readonly ApplicationDbContext _context;
         private IGenericRepository<Bus> _buses;
+        private IGenericRepository<Seat> _seats;
         private IGenericRepository<Feedback> _feedbacks;
+        private IGenericRepository<Booking> _bookings;
+        private IGenericRepository<Customer> _customers;
+        private IGenericRepository<Service> _services;
 
         private UserManager<ApplicationUser> _userManager;
 
@@ -32,6 +36,14 @@ namespace bus.Server.Repository
             => _buses ??= new GenericRepository<Bus>(_context);
         public IGenericRepository<Feedback> Feedbacks
             => _feedbacks ??= new GenericRepository<Feedback>(_context);
+        public IGenericRepository<Booking> Bookings
+           => _bookings ??= new GenericRepository<Booking>(_context);
+        public IGenericRepository<Customer> Customers
+          => _customers ??= new GenericRepository<Customer>(_context);
+        public IGenericRepository<Seat> Seats
+            => _seats ??= new GenericRepository<Seat>(_context);
+        public IGenericRepository<Service> Services
+            => _services ??= new GenericRepository<Service>(_context);
 
         public void Dispose()
         {

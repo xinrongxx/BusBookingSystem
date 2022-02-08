@@ -2,7 +2,7 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
-<h3 class="card-title">Create New Vehicles</h3>
+<h3 class="card-title">Create New Bus</h3>
 <hr />
 <br />
 <EditForm Model="@bus" OnValidSubmit="CreateBus">
@@ -10,48 +10,48 @@
     <ValidationSummary />
 
     <div class="form-group">
-        <label>Number of Bus: </label>
+        <label>Number of Bus needed: </label>
         <div>
-            <InputText @bind-Value="bus.BusSeater" class="form-control" />
-            <ValidationMessage For="@(()=> bus.BusSeater)" />
+            <InputNumber @bind-Value="bus.BusNo" class="form-control" />
+            <ValidationMessage For="@(()=> bus.BusNo)" />
         </div>
     </div>
 
     <div class="form-group">
-        <label>Type: </label>
+        <label>Seat: </label>
         <div>
-            <InputRadioGroup @bind-Value="bus.Type" class="form-control">
-                @foreach (var option in ratingOptions)
+            <InputSelect @bind-Value="bus.SeatId" class="form-control">
+               <option value="">-- Select Seat --</option>
+                @if (Seats != null)
                 {
-                <InputRadio Value="option" /> @option <br />
+                    foreach (var seat in Seats)
+                    {
+                        <option value="@seat.Id">@seat.Seats</option>
+                    }
                 }
-            </InputRadioGroup>
+            </InputSelect>
+            <ValidationMessage For="@(()=> bus.SeatId)" />
         </div>
-        <br />
-        <hr />
-        <span id="rating"></span>
     </div>
 
     <button type="submit" class=" btn btn-success btn-block">
-        Create Vehicle
+        Create Bus
     </button>
 </EditForm>
 
 @code {
     Bus bus = new Bus();
 
-    private IList<Bus> Buses;
-
-    List<string> ratingOptions = new List<string> { "10", "19", "23", "40", "45", "49" };
+    private IList<Seat> Seats;
 
     protected async override Task OnInitializedAsync()
     {
-        Buses = await _client.GetFromJsonAsync<List<Bus>>($"{Endpoints.BusesEndpoint}");
+        Seats = await _client.GetFromJsonAsync<List<Seat>>($"{Endpoints.SeatsEndpoint}");
     }
 
     private async Task CreateBus()
     {
         await _client.PostAsJsonAsync(Endpoints.BusesEndpoint, bus);
-        _navManager.NavigateTo("/bus/");
+        _navManager.NavigateTo("/buses/");
     }
 }

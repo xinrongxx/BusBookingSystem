@@ -21,9 +21,15 @@ namespace bus.Server.Data
         }
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<Service> Services { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new SeatSeedConfiguration());
+            builder.ApplyConfiguration(new ServiceSeedConfiguration());
             builder.ApplyConfiguration(new RoleSeedConfiguration());
             builder.ApplyConfiguration(new UserSeedConfiguration());
             builder.ApplyConfiguration(new UserRoleSeedConfiguration());

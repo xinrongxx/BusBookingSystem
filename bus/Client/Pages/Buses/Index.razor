@@ -22,7 +22,7 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Bus Seats</th>
+                <th>No. of Bus</th>
                 <th>Type</th>
                 <th>Actions</th>
             </tr>
@@ -31,8 +31,8 @@ else
             @foreach (var bus in Buses)
             {
                 <tr>
-                    <td>@bus.BusSeater</td>
-                    <td>@bus.Type</td>
+                    <td>@bus.BusNo</td>
+                    <td>@bus.Seat.Seats</td>
                     <td>
                         <a href="/vehicles/view/@bus.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>

@@ -49,14 +49,16 @@ namespace bus.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Buses",
+                name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BusSeater = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<double>(type: "float", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -64,7 +66,7 @@ namespace bus.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Buses", x => x.Id);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,6 +124,40 @@ namespace bus.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Seats = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,20 +266,110 @@ namespace bus.Server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "037ba005-11ad-42bb-acf9-7fa6b1f36c16", "Administrator", "ADMINISTRATOR" });
+            migrationBuilder.CreateTable(
+                name: "Buses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BusNo = table.Column<int>(type: "int", nullable: false),
+                    SeatId = table.Column<int>(type: "int", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Buses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Buses_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateOut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Hours = table.Column<int>(type: "int", nullable: false),
+                    BusId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    ServiceId = table.Column<int>(type: "int", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Buses_BusId",
+                        column: x => x.BusId,
+                        principalTable: "Buses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "bd2bcf0c-20db-474f-8407-5a6b159518bb", "1ae07c2b-ccba-475b-b82b-f4c6b830c1e5", "User", "USER" });
+                values: new object[,]
+                {
+                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "bbf0a917-309e-4f8f-a0d5-b6fa9910cc6c", "Administrator", "ADMINISTRATOR" },
+                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", "a815e1aa-3702-4e8e-96c0-97d52ccc7921", "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "8edee55d-cecc-47db-991b-d010a4c8b055", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", "AQAAAAEAACcQAAAAEKpn86QdTc+dwpoD5iYEVy5hebvcBKZOoFxsAlI/ETqW3BIGmkWsZRrgRFj8JKGzhA==", null, false, "e5afd380-1f9a-4951-a3b7-692eb551265e", false, "Admin" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "49d462a3-c67b-4d4f-a336-0829be983ede", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN", "AQAAAAEAACcQAAAAEKCowm1bDufJGqD2+PCSO3AXJ+gDeZMYVtIy7/0BCvp62Xxx8D9fI5lZp/YKakMOhA==", null, false, "5cea970a-d8a9-48cf-b525-700aeaf66609", false, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Seats",
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Seats", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 5, "System", new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9995), new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9996), "45", "System" },
+                    { 4, "System", new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9990), new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9992), "40", "System" },
+                    { 6, "System", new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9999), new DateTime(2022, 2, 8, 8, 41, 54, 228, DateTimeKind.Local), "49", "System" },
+                    { 2, "System", new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9973), new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9982), "19", "System" },
+                    { 1, "System", new DateTime(2022, 2, 8, 8, 41, 54, 221, DateTimeKind.Local).AddTicks(2976), new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(7892), "10", "System" },
+                    { 3, "System", new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9986), new DateTime(2022, 2, 8, 8, 41, 54, 227, DateTimeKind.Local).AddTicks(9988), "23", "System" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Services",
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Type", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 7, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6943), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6945), "Wedding Functions", "System" },
+                    { 1, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6864), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6907), "School bus", "System" },
+                    { 2, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6915), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6917), "Shuttle bus", "System" },
+                    { 3, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6921), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6923), "Concert / Event Trips", "System" },
+                    { 4, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6926), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6929), "School Excursion / Field Trips / Camp", "System" },
+                    { 5, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6932), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6934), "Funeral", "System" },
+                    { 6, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6938), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6940), "Day Care Centres", "System" },
+                    { 8, "System", new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6948), new DateTime(2022, 2, 8, 8, 41, 54, 242, DateTimeKind.Local).AddTicks(6950), "Company Functions", "System" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -290,6 +416,26 @@ namespace bus.Server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_BusId",
+                table: "Bookings",
+                column: "BusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_CustomerId",
+                table: "Bookings",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_ServiceId",
+                table: "Bookings",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Buses_SeatId",
+                table: "Buses",
+                column: "SeatId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -334,7 +480,7 @@ namespace bus.Server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Buses");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");
@@ -350,6 +496,18 @@ namespace bus.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Buses");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
         }
     }
 }

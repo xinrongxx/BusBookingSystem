@@ -11,10 +11,9 @@ namespace bus.Shared.Domain
     {
         [Required]
         [DataType(DataType.Date)]
-        public string BusSeater { get; set; }
-        public string Type { get; set; }
-        [Required]
-        [DataType(DataType.Currency)]
-        public double Amount { get; set; }
+        public int BusNo { get; set; }
+        public int? SeatId { get; set; }
+        public virtual Seat Seat { get; set; }
+        public virtual List<Booking> Bookings { get; set; }
     }
 }

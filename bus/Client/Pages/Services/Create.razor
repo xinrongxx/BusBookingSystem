@@ -1,0 +1,40 @@
+﻿@page "/services/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Service</h3>
+<hr />
+<br />
+<EditForm Model="@service" OnValidSubmit="CreateService">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Service: </label>
+        <div>
+            <InputText @bind-Value="service.Type" class="form-control" />
+            <ValidationMessage For="@(()=> service.Type)" />
+        </div>
+    </div>
+
+    <button type="submit" class=" btn btn-success btn-block">
+        Create Service
+    </button>
+</EditForm>
+
+@code {
+    Service service = new Service();
+
+    private IList<Service> Services;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Services = await _client.GetFromJsonAsync<List<Service>>($"{Endpoints.ServicesEndpoint}");
+    }
+
+    private async Task CreateService()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ServicesEndpoint, service);
+        _navManager.NavigateTo("/Services/");
+    }
+}

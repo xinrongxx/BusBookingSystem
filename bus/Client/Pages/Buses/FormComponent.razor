@@ -5,10 +5,10 @@
     <ValidationSummary />
     <fieldset disabled="@Disabled">
         <div class="form-group">
-            <label>Number of Seater: </label>
+            <label>Number of Bus needed: </label>
             <div>
-                <InputText @bind-Value="bus.BusSeater" class="form-control" />
-                <ValidationMessage For="@(()=> bus.BusSeater)" />
+                <InputNumber @bind-Value="bus.BusNo" class="form-control" />
+                <ValidationMessage For="@(()=> bus.BusNo)" />
             </div>
         </div>
     </fieldset>
